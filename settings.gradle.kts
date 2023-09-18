@@ -11,3 +11,4 @@ plugins {
 
 rootProject.name = "Kotlin-FP"
 include("lazysoul")
+include("daeyoon")
