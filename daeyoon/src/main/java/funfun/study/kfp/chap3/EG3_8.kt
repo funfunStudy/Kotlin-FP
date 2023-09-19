@@ -16,3 +16,7 @@ fun product2(dbs: List<Double>): Double =
         a * b
     }
 
+fun <A> length(xs: List<A>): Int =
+    foldRight(xs, 0) { _, b ->
+        b + 1
+    }
