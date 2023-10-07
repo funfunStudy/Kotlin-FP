@@ -1,9 +1,5 @@
 package funfun.study.kfp.chap3
 
-sealed class Tree<out A>
-data class Leaf<A>(val value: A) : Tree<A>()
-data class Branch<A>(val left: Tree<A>, val right: Tree<A>) : Tree<A>()
-
 fun <A, B> fold(ta: Tree<A>, l: (A) -> B, b: (B, B) -> B): B =
     when (ta) {
         is Leaf -> l(ta.value)
