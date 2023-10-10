@@ -21,3 +21,5 @@ fun main() {
     println(mkPerson("d", -1))
     println(mkPerson("John", 12))
 }
+
+data class Left2<out ERROR>(val value: List<ERROR>) //: Either<ERROR, Nothing>

@@ -13,3 +13,10 @@ fun <A, B, C> map2(oa: Option<A>, ob: Option<B>, f: (A, B) -> C): Option<C> =
             f(a, b)
         }
     }
+
+fun <A, B, C> map2_2(oa: Option<A>, ob: Option<B>, f: (A, B) -> C): Option<C> =
+    oa.flatMap { a: A ->
+        ob.map { b: B ->
+            f(a, b)
+        }
+    }

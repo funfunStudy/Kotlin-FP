@@ -33,4 +33,3 @@ fun <ERROR, ITEM1, ITEM2, RESULT> map2(
             transfer(item1, item2)
         }
     }
-
