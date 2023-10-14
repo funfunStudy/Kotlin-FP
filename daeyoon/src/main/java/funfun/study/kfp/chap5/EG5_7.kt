@@ -14,3 +14,17 @@ fun <ITEM> Stream<ITEM>.append(sa: () -> Stream<ITEM>): Stream<ITEM> =
     foldRight(sa) { h, t ->
         Cons({ h }, t)
     }
+
+fun ones(): Stream<Int> = Cons.cons({ 1 }, { ones() })
+
+fun main() {
+    println(ones().take(5).toList())
+    println(ones().exists { it % 2 != 0 })
+    println(ones().map { it + 1 }.exists { it % 2 == 0 })
+    println(ones().takeWhile { it == 1 })
+//    println(ones().forAll2 { it == 1 })
+//    println(ones().takeWhile { it == 1 }.toList())
+//    println(ones().exists { it % 2 == 0 })
+
+
+}
