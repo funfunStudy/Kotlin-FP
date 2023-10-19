@@ -15,6 +15,11 @@ fun <ITEM, RESULT> Stream<ITEM>.map2(f: (ITEM) -> RESULT): Stream<RESULT> =
         }
     }
 
+fun <ITEM, RESULT> Stream<ITEM>.mapFold(f: (ITEM) -> RESULT): Stream<RESULT> =
+    foldRight({ Empty.empty() }) { h, t ->
+        Cons.cons({ f(h) }, t)
+    }
+
 fun <ITEM> Stream<ITEM>.take2(n: Int): Stream<ITEM> =
     unfold(n to this) { (num, item) ->
         if (num == 0) None
@@ -77,16 +82,24 @@ fun <ITEM1, ITEM2> Stream<ITEM1>.zipAll(that: Stream<ITEM2>): Stream<Pair<Option
 
 fun main() {
     val s = Stream.of(1, 2, 3, 4, 5)
-    println(s.take2(3).toList())
-    println(s.take3(3).toList())
-    println(s.takeWhile3 { it <= 3 }.toList())
+    println(s)
 
+    println(s.map2 {
+        it + 1
+    }.toList())
+    println(s.mapFold { it + 1 }.toList())
 
-    val i1 = Stream.of(1, 2, 3)
-    val i2 = Stream.of(3, 2, 1)
-    println(
-        i1.zipWith(i2) { a, b ->
-            a + b
-        }.toList()
-    )
+//    println()
+//    println(s.take2(3).toList())
+//    println(s.take3(3).toList())
+//    println(s.takeWhile3 { it <= 3 }.toList())
+//
+//
+//    val i1 = Stream.of(1, 2, 3)
+//    val i2 = Stream.of(3, 2, 1)
+//    println(
+//        i1.zipWith(i2) { a, b ->
+//            a + b
+//        }.toList()
+//    )
 }

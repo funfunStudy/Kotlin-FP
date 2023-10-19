@@ -4,11 +4,11 @@ import funfun.study.kfp.chap4.None
 import funfun.study.kfp.chap4.Option
 import funfun.study.kfp.chap4.Some
 
-fun <A, S> unfold(z: S, f: (S) -> Option<Pair<A, S>>): Stream<A> =
-    when (val s = f(z)) {
+fun <ITEM, SEED> unfold(seed: SEED, generate: (SEED) -> Option<Pair<ITEM, SEED>>): Stream<ITEM> =
+    when (val gen = generate(seed)) {
         is None -> Empty
         is Some -> {
-            val (cur, next) = s.get
-            Cons.cons({ cur }, { unfold(next, f) })
+            val (curItem : ITEM, nextSeed : SEED) = gen.get
+            Cons.cons({ curItem }, { unfold(nextSeed, generate) })
         }
     }

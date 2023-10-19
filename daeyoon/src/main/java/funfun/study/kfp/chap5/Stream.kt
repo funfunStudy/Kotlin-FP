@@ -13,10 +13,19 @@ data class Cons<out ITEM>(
     val tail: () -> Stream<ITEM>
 ) : Stream<ITEM>() {
     companion object {
-        fun <ITEM> cons(head: () -> ITEM, tail: () -> Stream<ITEM>): Stream<ITEM> {
-            val head: ITEM by lazy(head)
-            val tail: Stream<ITEM> by lazy(tail)
+        fun <ITEM> cons(hd: () -> ITEM, tl: () -> Stream<ITEM>): Stream<ITEM> {
+            val head: ITEM by lazy(hd)
+            val tail: Stream<ITEM> by lazy(tl)
             return Cons({ head }, { tail })
+        }
+
+        fun <ITEM> cons2(hd: () -> ITEM, tl: () -> Stream<ITEM>): Stream<ITEM> {
+            val head = hd()
+            val tail = tl()
+            return Cons({ head }, { tail })
+        }
+        fun <ITEM> cons3(hd: () -> ITEM, tl: () -> Stream<ITEM>): Stream<ITEM> {
+            return Cons({ hd() }, { tl() })
         }
     }
 }
