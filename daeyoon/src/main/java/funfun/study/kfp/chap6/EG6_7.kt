@@ -23,12 +23,18 @@ fun <ITEM> sequence(fs: List<Rand<ITEM>>): Rand<List<ITEM>> = { rng ->
 // Cons(raItem, Cons(rbItem, Nil to rng)) to rng3
 fun <ITEM> sequenceFold(fs: List<Rand<ITEM>>): Rand<List<ITEM>> = { rng ->
     foldRight(fs, Nil to rng) { head: Rand<ITEM>, tail: Pair<List<ITEM>, RNG> ->
-
         val (item, rng1) = head(rng)
         val (list, _) = tail
         Cons(item, list) to rng1
     }
 }
+
+fun <ITEM> sequenceFold2(fs: List<Rand<ITEM>>): Rand<List<ITEM>> =
+    foldRight(fs, unit(Nil)) { item: Rand<ITEM>, acc: Rand<List<ITEM>> ->
+        map2(item, acc) { h, t ->
+            Cons(h, t)
+        }
+    }
 
 fun ints2(count: Int, rng: RNG): Pair<List<Int>, RNG> {
     fun go(count: Int): List<Rand<Int>> {
