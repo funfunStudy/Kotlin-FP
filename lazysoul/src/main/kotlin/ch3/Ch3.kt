@@ -38,11 +38,22 @@ sealed class List<out A> {
             }
 
         fun <A> List<A>.reverse(): List<A> =
-            when(this){
+            when (this) {
                 is Nil -> Nil
-                is Cons -> foldLeft(Nil as List<A>){ b, a -> Cons(a, b) }
+                is Cons -> foldLeft(Nil as List<A>) { b, a -> Cons(a, b) }
             }
 
+        fun <A, B> List<A>.map(f: (A) -> B): List<B> = foldRight(Nil as List<B>) { value, acc ->
+            Cons(f(value), acc)
+        }
+
+        fun <A> List<A>.filter(f: (A) -> Boolean): List<A> = foldRight(Nil as List<A>) { value, acc ->
+            if (f(value)) {
+                Cons(value, acc)
+            } else {
+                acc
+            }
+        }
     }
 }
 

@@ -7,9 +7,15 @@ import ch3.Nil
 import kotlin.Exception
 
 object Ch4 {
-    sealed class Option<out A>
+    sealed class Option<out A> {
+        companion object {
+            fun <A> empty(): Option<A> = None
+        }
+    }
+
     data class Some<out A>(val get: A) : Option<A>()
     data object None : Option<Nothing>()
+
 
     fun <A, B> Option<A>.map(f: (A) -> B): Option<B> =
         when (this) {
@@ -142,12 +148,13 @@ object Ch4 {
         ea: Either<E, A>,
         eb: Either<E, B>,
         f: (A, B) -> C
-    ): Either<List<E>, C> = when(ea) {
-        is Left -> when(eb) {
+    ): Either<List<E>, C> = when (ea) {
+        is Left -> when (eb) {
             is Left -> Left(List.of(ea.value, eb.value))
             is Right -> Left(List.of(ea.value))
         }
-        is Right -> when(eb) {
+
+        is Right -> when (eb) {
             is Left -> Left(List.of(eb.value))
             is Right -> Right(f(ea.value, eb.value))
         }
