@@ -13,8 +13,15 @@ repositories {
 }
 
 dependencies {
+    val kotestVersion = "5.7.2"
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    testImplementation("io.kotest:kotest-property:$kotestVersion")
+
+
+
     implementation(kotlin("stdlib-jdk8"))
 }
 
@@ -23,5 +30,5 @@ tasks.getByName<Test>("test") {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "17"
 }
