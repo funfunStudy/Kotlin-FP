@@ -21,7 +21,6 @@ dependencies {
     testImplementation("io.kotest:kotest-property:$kotestVersion")
 
 
-
     implementation(kotlin("stdlib-jdk8"))
 }
 
